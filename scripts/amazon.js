@@ -1,37 +1,9 @@
-const products = [
-    {
-        name: 'Black and Gray Athletic Cotton Socks - 6 Pairs',
-        image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
-        rating: {
-            stars: 4.5, 
-            count: 87
-        },
-        priceCents: 1090,
-    },
-    {
-        name: 'Intermediate Size Basketball',
-        image: 'images/products/intermediate-composite-basketball.jpg',
-        rating: {
-            stars: 4,
-            count: 127
-        },
-        priceCents: 2095
-    },
-    {
-        name: 'Adults Plain Cotton T-Shirt - 2 Pack',
-        image: 'images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg',
-        rating: {
-            stars: 4.5,
-            count: 56
-        },
-        priceCents: 799
-    }
-];
-
+import { products } from "../data/products.js";
 const productContainer = document.querySelector('.products-grid');
-
-const productHtml = products.map(product => {
-    return `
+    
+const renderProducts = (products) => {
+     const productRender =  products.map((product) => {
+        return `
         <div class="product-container">
                 <div class="product-image-container">
                     <img class="product-image"
@@ -81,5 +53,12 @@ const productHtml = products.map(product => {
                 </button>
         </div>
  `
-}).join('');
-productContainer.innerHTML = productHtml;
+    }).join('');
+
+    productContainer.innerHTML  = productRender;
+    return;
+}
+
+renderProducts(products);
+
+
