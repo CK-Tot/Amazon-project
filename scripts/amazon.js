@@ -49,7 +49,7 @@ const renderProducts = (products) => {
                     Added
                 </div>
 
-                <button class="add-to-cart-button js-add-to-cart-btn button-primary" data-product-name="${product.name}">
+                <button class="add-to-cart-button js-add-to-cart-btn button-primary" data-product-id="${product.id}">
                     Add to Cart
                 </button>
         </div>
@@ -63,22 +63,22 @@ const renderProducts = (products) => {
 
     addToCartBtn.forEach(btn => {
         btn.addEventListener('click', () => {
-            const productName = btn.dataset.productName;
-            let matching;
+            const productId = btn.dataset.productId;
+            let matchingItem;
 
             cart.forEach(item => {
-                if (productName === item.productName)
+                if (productId === item.productId)
                 {
-                    matching = item;
+                    matchingItem = item;
                 }
             });
 
-            if (matching)
+            if (matchingItem)
             {
-                matching.quantity++;
+                matchingItem.quantity++;
             } else {
                 cart.push({
-                productName,
+                productId,
                 quantity: 1
             });
             }
