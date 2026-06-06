@@ -83,9 +83,16 @@ const renderProducts = (products) => {
             });
             }
 
-            
+            let cartQuantity = 0; 
 
-            console.log(cart)
+            cart.forEach(item => {
+                cartQuantity += item.quantity;
+            })
+
+            const cartQuantityEl = document.querySelector('.js-cart-quantity');
+
+            cartQuantityEl.textContent = cartQuantity;
+            
 
 
         })
