@@ -64,14 +64,11 @@ const renderProducts = (products) => {
             const productId = btn.dataset.productId;
             const selectEl = document.querySelector(`.js-quantity-select-${productId}`);
             const quantityEL = document.querySelector('.js-cart-quantity');
-            let mathcingItem;
+            let mathcingItem = cart.find(item => {
+                return productId === item.productId;
+            })
 
-            cart.forEach(item => {
-                if (productId === item.productId)
-                {
-                    mathcingItem = item;
-                }
-            });
+            
 
              if (mathcingItem)
                 {
@@ -82,6 +79,7 @@ const renderProducts = (products) => {
                         quantity: Number(selectEl.value) 
                     })
                 }
+                // Dom quantity update
                 let cartQuantity = 0; 
 
                 cart.forEach(item => {
