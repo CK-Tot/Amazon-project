@@ -44,7 +44,7 @@ const renderProducts = (products) => {
 
                 <div class="product-spacer"></div>
 
-                <div class="added-to-cart">
+                <div class="added-to-cart add-To-cart-message-${[product.id]}">
                     <img src="images/icons/checkmark.png">
                     Added
                 </div>
@@ -60,13 +60,37 @@ const renderProducts = (products) => {
     const addToCartBtn = document.querySelectorAll('.js-add-to-cart-btn');
 
     addToCartBtn.forEach(btn => {
+        let msgTimeoutId;
         btn.addEventListener('click', () => {
             const productId = btn.dataset.productId;
             const selectEl = document.querySelector(`.js-quantity-select-${productId}`);
             const quantityEL = document.querySelector('.js-cart-quantity');
+            const addToCartMsg = document.querySelector(`.add-To-cart-message-${productId}`);
             let mathcingItem = cart.find(item => {
                 return productId === item.productId;
             })
+
+             // add to cart mesaage
+            
+            addToCartMsg.classList.add('msg')
+
+            
+                if (msgTimeoutId)
+                {
+                    clearTimeout(msgTimeoutId)
+                }
+
+
+                 msgTimeoutId= setTimeout(() => {
+                addToCartMsg.classList.remove('msg');
+                }, 2000);
+
+           
+
+            
+          
+            
+            
 
             
 
