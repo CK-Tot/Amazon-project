@@ -82,10 +82,15 @@ const renderProducts = (products) => {
                         quantity: Number(selectEl.value) 
                     })
                 }
+                let cartQuantity = 0; 
 
                 cart.forEach(item => {
-                    quantityEL.innerHTML = item.quantity;
-                })
+                    cartQuantity += item.quantity;
+                });
+
+                quantityEL.textContent = cartQuantity;
+
+                console.log(cart);
         })
     })
 }
