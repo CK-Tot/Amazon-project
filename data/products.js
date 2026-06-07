@@ -656,5 +656,36 @@ export const products = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id: 'id1',
+    image: '/images/products/backpack.jpg',
+    name: 'Black backpack',
+    rating: {
+      stars: 3.5,
+      count: 300
+    },
+    priceCents: 6500,
+    keywords: [
+      'bags',
+      'schoool',
+      'package'
+    ]
+  },
+  {
+    id: 'id2',
+    image: '/images/products/umbrella.jpg',
+    name: 'Umbrella',
+    rating: {
+      stars: 4.5,
+      count: 5040
+    },
+    priceCents: 6720,
+    keywords: [
+      'rain',
+      'cover',
+      'winter',
+      'umberella'
+    ]
   }
 ];
