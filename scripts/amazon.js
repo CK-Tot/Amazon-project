@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products,  } from "../data/products.js";
 const productContainer = document.querySelector('.products-grid');
     
@@ -59,60 +59,52 @@ const renderProducts = (products) => {
     productContainer.innerHTML  = productRender;
     const addToCartBtn = document.querySelectorAll('.js-add-to-cart-btn');
 
+    function updateCartQuantity(quantityEL)
+    {
+        let cartQuantity = 0; 
+        cart.forEach(cartItem => {
+                    cartQuantity += cartItem.quantity;
+                });
+
+                quantityEL.textContent = cartQuantity;
+
+                console.log(cart);
+    }
+
+
+    function addToCartMsg(addToCartMsg, msgTimeoutId)
+    {
+        
+        // add to cart mesaage
+            addToCartMsg.classList.add('msg')
+                if (msgTimeoutId)
+                {
+                    clearTimeout(msgTimeoutId)
+                }
+
+                msgTimeoutId= setTimeout(() => {
+                addToCartMsg.classList.remove('msg');
+                }, 2000);
+    }
+    
     addToCartBtn.forEach(btn => {
         let msgTimeoutId;
         btn.addEventListener('click', () => {
             const productId = btn.dataset.productId;
             const selectEl = document.querySelector(`.js-quantity-select-${productId}`);
             const quantityEL = document.querySelector('.js-cart-quantity');
-            const addToCartMsg = document.querySelector(`.add-To-cart-message-${productId}`);
-            let mathcingItem = cart.find(item => {
-                return productId === item.productId;
-            })
-
-             // add to cart mesaage
+            const addToCartMsgEl = document.querySelector(`.add-To-cart-message-${productId}`);
             
-            addToCartMsg.classList.add('msg')
-
-            
-                if (msgTimeoutId)
-                {
-                    clearTimeout(msgTimeoutId)
-                }
-
-
-                 msgTimeoutId= setTimeout(() => {
-                addToCartMsg.classList.remove('msg');
-                }, 2000);
-
-           
-
-            
-          
-            
-            
-
-            
-
-             if (mathcingItem)
-                {
-                    mathcingItem.quantity += Number(selectEl.value);
-                } else {
-                    cart.push({
-                        productId,
-                        quantity: Number(selectEl.value) 
-                    })
-                }
+            // Add to cart msg function
+                addToCartMsg(addToCartMsgEl, msgTimeoutId);
+             
+                // add to cart function
+                addToCart(productId, selectEl);
+             
                 // Dom quantity update
-                let cartQuantity = 0; 
+                updateCartQuantity(quantityEL)
 
-                cart.forEach(item => {
-                    cartQuantity += item.quantity;
-                });
-
-                quantityEL.textContent = cartQuantity;
-
-                console.log(cart);
+                
         })
     })
 }
