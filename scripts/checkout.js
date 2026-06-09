@@ -1,6 +1,8 @@
-import { cart, removeFromCart } from "../data/cart.js";
+import { cart, removeFromCart, updateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
+import { updateHeaderDisplay } from "./utils/updateheader.js";
+// import { updateCartQuantity } from "../scripts/amazon.js"
 const orderSummaryEl = document.querySelector('.js-order-summary');
 let cartSummaryHtml = '';
 
@@ -94,8 +96,12 @@ cart.forEach(cartItem => {
 
 orderSummaryEl.innerHTML = cartSummaryHtml;
 
-const deleteLinkEl = document.querySelectorAll('.js-delete-link');
 
+
+const deleteLinkEl = document.querySelectorAll('.js-delete-link');
+const checkoutHeader = document.querySelector('.js-checkout-header');
+let total = updateCartQuantity();
+updateHeaderDisplay(checkoutHeader, total)
 deleteLinkEl.forEach((link, index) => {
 
     link.addEventListener('click', () => {
@@ -103,5 +109,11 @@ deleteLinkEl.forEach((link, index) => {
         const deletedProduct = removeFromCart(productId);
         const productContianer = document.querySelector(`.js-cart-item-container-${productId}`);
         productContianer.remove();
+        let updatedQuantity = updateCartQuantity();
+        updateHeaderDisplay(checkoutHeader, updatedQuantity);
     })
 })
+
+
+
+

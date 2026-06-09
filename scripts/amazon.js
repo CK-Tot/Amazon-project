@@ -1,4 +1,4 @@
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, updateCartQuantity } from "../data/cart.js";
 import { products,  } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 const productContainer = document.querySelector('.products-grid');
@@ -60,18 +60,7 @@ const renderProducts = (products) => {
     productContainer.innerHTML  = productRender;
     const addToCartBtn = document.querySelectorAll('.js-add-to-cart-btn');
 
-    function updateCartQuantity(quantityEL)
-    {
-        let cartQuantity = 0; 
-        cart.forEach(cartItem => {
-                    cartQuantity += cartItem.quantity;
-                });
-
-                quantityEL.textContent = cartQuantity;
-
-                console.log(cart);
-    }
-
+    
 
     function addToCartMsg(addToCartMsg, msgTimeoutId)
     {
@@ -88,12 +77,17 @@ const renderProducts = (products) => {
                 }, 2000);
     }
     
+    const quantityEL = document.querySelector('.js-cart-quantity');
+    let total  = updateCartQuantity();
+    quantityEL.innerHTML = total;
+
+    
     addToCartBtn.forEach(btn => {
         let msgTimeoutId;
         btn.addEventListener('click', () => {
             const productId = btn.dataset.productId;
             const selectEl = document.querySelector(`.js-quantity-select-${productId}`);
-            const quantityEL = document.querySelector('.js-cart-quantity');
+            
             const addToCartMsgEl = document.querySelector(`.add-To-cart-message-${productId}`);
             
             // Add to cart msg function
@@ -103,7 +97,8 @@ const renderProducts = (products) => {
                 addToCart(productId, selectEl);
              
                 // Dom quantity update
-                updateCartQuantity(quantityEL)
+                let NewQuantity = updateCartQuantity();
+                quantityEL.innerHTML = NewQuantity;
 
                 
         })
