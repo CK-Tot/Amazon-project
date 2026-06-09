@@ -32,12 +32,14 @@ cart.forEach(cartItem => {
                    $${formatCurrency(matchingProduct.priceCents)}
                 </div>
                 <div class="product-quantity">
-                    <span>
+                    <span class="link-primary">
                     Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                     </span>
-                    <span class="update-quantity-link link-primary">
+                    <span class="update-quantity-link  js-update-quantity-link link-primary" data-product-id="${matchingProduct.id}">
                     Update
                     </span>
+                    <input class="quantity-input">
+                    <span class="save-quantity-link link-primary">Save</span>
                     <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
                     Delete
                     </span>
@@ -100,8 +102,23 @@ orderSummaryEl.innerHTML = cartSummaryHtml;
 
 const deleteLinkEl = document.querySelectorAll('.js-delete-link');
 const checkoutHeader = document.querySelector('.js-checkout-header');
+
+const updateQuntityLinkEl = document.querySelectorAll(`.js-update-quantity-link`);
+
+updateQuntityLinkEl.forEach(link => {
+    link.addEventListener('click', ()=> {
+        const productId = link.dataset.productId;
+        const cartContainerProduct = document.querySelector(`.js-cart-item-container-${productId}`)
+        cartContainerProduct.classList.add('is-editing-quantity');
+        
+    });
+});
+
+
 let total = updateCartQuantity();
-updateHeaderDisplay(checkoutHeader, total)
+updateHeaderDisplay(checkoutHeader, total);
+
+
 deleteLinkEl.forEach((link, index) => {
 
     link.addEventListener('click', () => {
