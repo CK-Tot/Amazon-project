@@ -1,3 +1,5 @@
+import { renderOrderSummary } from "../scripts/checkout.js";
+
 export let cart = JSON.parse(localStorage.getItem('cart')) ||  [{
     productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
     quantity: 2,
@@ -73,5 +75,21 @@ export function updateQuantity(productId, newQuantity)
     
     saveToStorage()
     return matchingItem.quantity;
+
+}
+
+
+export function updateDeliveryOption(productId, deliveryOptionId)
+{
+    const mathcingItem = cart.find(cartItem => {
+        return cartItem.productId === productId;
+    });
+
+    // if (mathcingItem) return;
+
+    mathcingItem.deliveryOptionId = deliveryOptionId;
+    saveToStorage();
+
+    renderOrderSummary()
 
 }
