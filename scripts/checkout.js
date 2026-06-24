@@ -13,9 +13,9 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 // console.log(deliveryDate.format('dddd, MMMM D, YYYY'));
 
 
-
-
-const orderSummaryEl = document.querySelector('.js-order-summary');
+export function renderOrderSummary()
+{
+    const orderSummaryEl = document.querySelector('.js-order-summary');
 let cartSummaryHtml = '';
 
 cart.forEach(cartItem => {
@@ -188,14 +188,18 @@ saveQuantityEl.forEach(link => {
 })
 
 
-export function renderOrderSummary()
-{
+
+
     document.querySelectorAll('.js-delivery-option').forEach(option => {
         option.addEventListener('click', () => {
-            const {productId, deliveryOptionId} = option.dataset;
+            const { productId, deliveryOptionId } = option.dataset;
             updateDeliveryOption(productId, deliveryOptionId);
         })
 })
 
+    
 }
+
+renderOrderSummary();
+
 
