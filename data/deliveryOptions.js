@@ -15,3 +15,12 @@
     priceCents: 999
 }
 ]
+
+export function getDeliveryOption(deliveryOptionId)
+{
+     const deliveryOption = deliveryOptions.find(option => {
+        return option.id === deliveryOptionId;
+    });
+
+    return deliveryOption || deliveryOptions[0]
+}
