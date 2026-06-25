@@ -16,7 +16,7 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 export function renderOrderSummary()
 {
     const orderSummaryEl = document.querySelector('.js-order-summary');
-let cartSummaryHtml = '';
+    let cartSummaryHtml = '';
 
 cart.forEach(cartItem => {
     const productId = cartItem.productId;
@@ -28,7 +28,7 @@ cart.forEach(cartItem => {
     const deliveryOptionId = cartItem.deliveryOptionId;
 
     const deliveryOption = deliveryOptions.find(option => {
-        return option.id = deliveryOptionId;
+        return option.id === deliveryOptionId;
     });
 
     const today = dayjs();
@@ -194,6 +194,7 @@ saveQuantityEl.forEach(link => {
         option.addEventListener('click', () => {
             const { productId, deliveryOptionId } = option.dataset;
             updateDeliveryOption(productId, deliveryOptionId);
+            renderOrderSummary();
         })
 })
 
