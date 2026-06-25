@@ -4,6 +4,7 @@ import { formatCurrency } from "../utils/money.js";
 import { updateHeaderDisplay } from "../utils/updateheader.js";
 // import { updateCartQuantity } from "../scripts/amazon.js"
 import { deliveryOptions, getDeliveryOption } from "../../data/deliveryOptions.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 
 import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
@@ -113,6 +114,7 @@ function deliveryOptionsHTML (matchingProduct, cartItem) {
         `
     });
 
+    renderPaymentSummary()
     return html;
 }
 
@@ -146,9 +148,15 @@ deleteLinkEl.forEach((link, index) => {
     link.addEventListener('click', () => {
         const productId = link.dataset.productId;
         const productContianer = document.querySelector(`.js-cart-item-container-${productId}`);
+
+        removeFromCart(productId)
         productContianer.remove();
         let updatedQuantity = updateCartQuantity();
         updateHeaderDisplay(checkoutHeader, updatedQuantity);
+
+        renderPaymentSummary();
+
+        
     })
 })
 
@@ -178,6 +186,7 @@ saveQuantityEl.forEach(link => {
 
         updateHeaderDisplay(checkoutHeader, updatedCartQuantity);
         inputEl.value = '';
+        renderPaymentSummary()
 
 
 
@@ -192,6 +201,7 @@ saveQuantityEl.forEach(link => {
             const { productId, deliveryOptionId } = option.dataset;
             updateDeliveryOption(productId, deliveryOptionId);
             renderOrderSummary();
+            renderPaymentSummary();
         })
 })
 

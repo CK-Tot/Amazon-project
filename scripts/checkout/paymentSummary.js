@@ -61,5 +61,3 @@ export function renderPaymentSummary()
     jsPaymentSummaryContainer.innerHTML = paymentSummaryHtml;
      
 }
-
-renderPaymentSummary();
